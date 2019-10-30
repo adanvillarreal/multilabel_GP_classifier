@@ -42,8 +42,8 @@ p.minprob=0;
 p=setfunctions(p,'plus',2,'minus',2,'times',2,'kozadivide',2);
 p=setterminals(p,'rand');
 
-p.datafilex='heart_x.txt';
-p.datafiley='heart_y.txt';
+p.datafilex='mlc_x.txt';
+p.datafiley='mlc_y.txt';
 
 p.usetestdata=0;
 %p.testdatafilex='gee_coords2_x.txt';

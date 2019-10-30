@@ -35,7 +35,7 @@ function [tree,lastnode]=maketree(level,oplist,oparity,exactlevel,depthnodes,dim
 %      - Ingalalli, Silva, Castelli, Vanneschi (2014). A Multi-dimensional
 %      Genetic Programming Approach for Multi-class Classification
 %      Problems, EuroGP-2014.
-%      - Muñoz, Silva, Trujillo (2015). M3GP – Multiclass Classification
+%      - Muï¿½oz, Silva, Trujillo (2015). M3GP ï¿½ Multiclass Classification
 %      with GP, EuroGP-2015.
 %
 %   See also NEWIND, TREELEVEL, NODES
@@ -49,6 +49,11 @@ end
 
 if ~exist('lastnode')
    lastnode=0; 
+end
+
+if isfield(dimensions, 'fixeddims')
+    fixeddims=dimensions.fixeddims;
+    dimensions=dimensions.dimensions;
 end
 thisnode=lastnode+1;
 
@@ -133,7 +138,11 @@ a=oplist{op,2}; % a = arity of the chosen op
 % for the M3GP method:
 if ~isempty(dimensions)
     tree.op='root';
-    a=intrand(1,dimensions); % any dimension allowed until dimensions
+    if ~fixeddims
+        a=intrand(1,dimensions); % any dimension allowed until dimensions
+    else
+        a=dimensions;
+    end
     dimensions=[]; %becomes empty so no other root nodes are created
 end
 

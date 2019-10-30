@@ -1,4 +1,4 @@
-function [pop,lastid]=growinit(n,lastid,maxlevel,oplist,oparity,depthnodes,dimensions);
+function [pop,lastid]=growinit(n,lastid,maxlevel,oplist,oparity,depthnodes,dimensions,fixeddims);
 %GROWINIT    Creates a new GPLAB population with the grow method.
 %   GROWINIT(POPSIZE,LASTID,MAXLEVEL,OPERATORS,ARITY,DEPTHNODES)
 %   returns a population of POPSIZE new individuals for the GPLAB
@@ -32,7 +32,7 @@ function [pop,lastid]=growinit(n,lastid,maxlevel,oplist,oparity,depthnodes,dimen
 %      - Ingalalli, Silva, Castelli, Vanneschi (2014). A Multi-dimensional
 %      Genetic Programming Approach for Multi-class Classification
 %      Problems, EuroGP-2014.
-%      - Muñoz, Silva, Trujillo (2015). M3GP – Multiclass Classification
+%      - Muï¿½oz, Silva, Trujillo (2015). M3GP ï¿½ Multiclass Classification
 %      with GP, EuroGP-2015.
 %
 %   See also FULLINIT, RAMPEDINIT, INITPOP, NEWIND
@@ -46,7 +46,7 @@ uniquestrs={};
 for i=1:n
    ntry=1;
    while ntry<=20
-   	[pop(i),tmplastid]=newind(lastid,maxlevel,oplist,oparity,0,depthnodes,dimensions);
+   	[pop(i),tmplastid]=newind(lastid,maxlevel,oplist,oparity,0,depthnodes,struct('dimensions',dimensions,'fixeddims',fixeddims));
       % (0 = grow method - the new tree level does not have to be exactly maxlevel)
       if isempty(find(strcmp(uniquestrs,pop(i).str)))
          uniquestrs{end+1}=pop(i).str;

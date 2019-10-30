@@ -51,8 +51,18 @@ case 8
    inittype=varargin{5};
    depthnodes=varargin{6};
    dimensions=varargin{7};
+   [pop,lastid]=feval(inittype,n,lastid,maxlevel,oplist,oparity,depthnodes,dimensions,0);
+case 9
+   lastid=varargin{1};
+   maxlevel=varargin{2};
+   oplist=varargin{3};
+   oparity=varargin{4};
+   inittype=varargin{5};
+   depthnodes=varargin{6};
+   dimensions=varargin{7};
+   fixeddims=varargin{8};
+   [pop,lastid]=feval(inittype,n,lastid,maxlevel,oplist,oparity,depthnodes,dimensions,1);
    % call the appropriate initialization method:
-   [pop,lastid]=feval(inittype,n,lastid,maxlevel,oplist,oparity,depthnodes,dimensions);
 otherwise
    error('INITPOP: Wrong number of input arguments!')
 end

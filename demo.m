@@ -25,12 +25,10 @@ p=setoperators(p,'crossover',2,2,'mutation',1,1);
 p.operatorprobstype='variable';
 p.minprob=0;
 
-p.datafilex='quartic_x.txt';
-p.datafiley='quartic_y.txt';
+p.datafilex='mlc_x.txt';
+p.datafiley='mlc_y.txt';
 
-p.usetestdata=1;
-p.testdatafilex='exp_x.txt';
-p.testdatafiley='exp_y.txt';
+p.usetestdata=0;
 
 p.calcdiversity={'uniquegen'};
 p.calccomplexity=1;
