@@ -35,7 +35,7 @@ for t=1:params.numvars
    temp2=['[',temp1,']'];
    temp2(end-1)=[];
    state.varsvals{t}=temp2;
-   
+
    if params.rst
       %state.rstvarsvals{t}=mat2str(state.rstdata.example(:,t));
       temp1=sprintf('%d;',data.rstdata.example(:,t));
@@ -43,7 +43,7 @@ for t=1:params.numvars
       temp2(end-1)=[];
       state.rstvarsvals{t}=temp2;
    end
-   
+
    if params.usetestdata
       %state.testvarsvals{t}=mat2str(data.test.example(:,t));
       temp1=sprintf('%d;',data.test.example(:,t));
@@ -53,10 +53,9 @@ for t=1:params.numvars
    end
 end
 
-for i=1:length(pop)
+parfor i=1:length(pop)
    if isempty(pop(i).fitness)
       [pop(i),state2]=calcfitness(pop(i),params,data,state,0);
       % (0 = learning data, not testing)
    end
 end
-

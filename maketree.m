@@ -48,7 +48,7 @@ if ~strcmp(depthnodes,'1') && ~strcmp(depthnodes,'2')
 end
 
 if ~exist('lastnode')
-   lastnode=0; 
+   lastnode=0;
 end
 
 if isfield(dimensions, 'fixeddims')
@@ -67,7 +67,7 @@ if level==1
    end
    ind=intrand(1,size(f,2)); % choose one at random
    op=f(ind);
-   
+
 elseif exactlevel
    % we must choose a non terminal because the level must be exactly the indicated.
    % if we are limiting nodes, choose a non terminal with arity that obeys limit
@@ -81,12 +81,12 @@ elseif exactlevel
    else % depthnodes=='1'
       f=find(oparity~=0); % f gives all indices of non terminals
       ind=intrand(1,size(f,2)); % choose one at random
-   end   
+   end
    if isempty(f)
       error('RAND generated 0.0000! Possible cause: no functions or no terminals (including variables) available.')
    end
    op=f(ind);
-   
+
 else
    if strcmp(depthnodes,'2') % check size limitations
       % choose an operator for which the arity obeys the size limitation
@@ -103,9 +103,9 @@ else
       op=f(ind);
    	if op==0
       	error('RAND generated 0.0000! Possible cause: no terminals or functions available.')
-   	end   
+   	end
    end
-      
+
 end
 
 
@@ -174,6 +174,9 @@ for i=1:a
    [t,lastnode]=maketree(newlevel,oplist,oparity,exactlevel,depthnodes,dimensions,thisnode);
    tree.kids{i}=t;
    thisnode=lastnode+1;
+end
+if i ~= a
+    disp 'fail'
 end
 
 tree.nodes=thisnode-tree.nodeid+1;

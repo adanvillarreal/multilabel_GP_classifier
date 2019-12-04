@@ -54,7 +54,9 @@ p.calccomplexity=0;
 %p.graphics={'plotfitness','plotdiversity','plotcomplexity','plotoperators'};
 p.graphics={};
 p.fixedlevel=0;
-p.dynamiclevel=0;
+p.dynamiclevel=1;
+p.inicmaxlevel=3;
+p.initpoptype='fullinit';
 
 %p.savetofile='every10';
 %p.savedir='C:\Users\SaraSilva\Desktop\GPLAB\GP_Data_test';

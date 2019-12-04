@@ -26,10 +26,11 @@ if isempty(ind.nodes)
    ind.nodes=nodes(ind.tree);
 end
 
-if params.M3GP
+
+if params.M3GP || (isfield(params, 'MLC') && params.MLC)
     % decide which mutation:
     r=rand;
-    if r<1/3 % normal mutation, just do not touch the root node
+    if r<1/3 || (isfield(params, 'MLC') && params.MLC) % normal mutation, just do not touch the root node
         x=intrand(2,ind.nodes); % mutation point
         indorigin='M3GPmutation_normal';
     elseif r<2/3 % add a dimension as a new last branch of the root node
@@ -55,7 +56,7 @@ if params.M3GP
             ind.tree=pruneM3GPdimension(ind.tree,x);
         else % else do nothing, do not remove the only dimension
             x=0; % this will signal that nothing was done
-        end 
+        end
         indorigin='M3GPmutation_removedimension';
     end
 else

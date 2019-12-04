@@ -91,7 +91,7 @@ if params.gde
     pop=tmppop;
 else
     [pop,state]=applysurvival(pop,params,state,tmppop);
-    if params.M3GP
+    if params.M3GP % BUSCAR DONDE MAS SE USA ESTO
         % prune the first individual on the list, which is also the best
         % (applysurvival has ordered them by fitness)
         if and(~pop(1).pruned,length(pop(1).tree.kids)>1)
