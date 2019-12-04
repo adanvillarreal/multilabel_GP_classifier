@@ -114,6 +114,8 @@ if start
             data.test.classes=data.classes;
         %    [~,~,data.test.classfrequencies]=countfind(data.test.result,data.test.classes);
         end
+   elseif isfield(params, 'MLC') && params.MLC
+       data.classes=unique(params.Ylabels);
    end
    
 end

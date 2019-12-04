@@ -36,9 +36,24 @@ if params.M3GP
     % the last parameters is the number of dimensions of the initial
     % individuals. by default, the initial individuals have only one
     % dimension. If not M3GP, dimensions=[]
+elseif isfield(params, 'FG4C') && params.FG4C
+    X = data.example;
+    nFeatures = size(X,2);
+    pop = [];
+    for i = 1:10:n
+        [popt,state.lastid]=initpop(10,state.lastid,params.inicmaxlevel,...
+            state.functions,state.arity,params.initpoptype,...
+            params.depthnodes,randi(nFeatures));
+        pop = cat(2,pop,popt);
+    end
+    state.lastid = n;
+elseif isfield(params, 'MLC') && params.MLC
+    [pop,state.lastid]=initpop(n,state.lastid,params.inicmaxlevel,state.functions,state.arity,params.initpoptype,params.depthnodes,params.dims,1);
 else
     [pop,state.lastid]=initpop(n,state.lastid,params.inicmaxlevel,state.functions,state.arity,params.initpoptype,params.depthnodes,[]);
 end
+
+%TODO: create the fitness function.
 
 % if variable probabilities, update adaptwindow and op history:
 if strcmp(params.operatorprobstype,'variable')
@@ -53,4 +68,3 @@ end
 if strcmp(params.survival,'pivotfixe')
     state.pivot=state.maxfitness/state.maxgen;
 end
-

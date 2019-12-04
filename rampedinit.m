@@ -1,4 +1,4 @@
-function [pop,lastid]=rampedinit(n,lastid,maxlevel,oplist,oparity,depthnodes,dimensions);
+function [pop,lastid]=rampedinit(n,lastid,maxlevel,oplist,oparity,depthnodes,dimensions,fixeddims);
 %RAMPEDINIT    Creates a new GPLAB population with ramped half-and-half method.
 %   RAMPEDINIT(POPSIZE,LASTID,MAXLEVEL,OPERATORS,ARITY,DEPTHNODES)
 %   returns a population of POPSIZE new individuals for the GPLAB
@@ -33,7 +33,7 @@ function [pop,lastid]=rampedinit(n,lastid,maxlevel,oplist,oparity,depthnodes,dim
 %      - Ingalalli, Silva, Castelli, Vanneschi (2014). A Multi-dimensional
 %      Genetic Programming Approach for Multi-class Classification
 %      Problems, EuroGP-2014.
-%      - Muñoz, Silva, Trujillo (2015). M3GP – Multiclass Classification
+%      - Muï¿½oz, Silva, Trujillo (2015). M3GP ï¿½ Multiclass Classification
 %      with GP, EuroGP-2015.
 %
 %   See also FULLINIT, GROWINIT, INITPOP, NEWIND
@@ -56,7 +56,7 @@ for m=1:nlevels;
    if ncreated<n
       ntocreate=min([n-ncreated nfullmethod]);
       if ntocreate>0
-	      [partialpop,lastid]=fullinit(ntocreate,lastid,thislevel,oplist,oparity,depthnodes,dimensions);
+	      [partialpop,lastid]=fullinit(ntocreate,lastid,thislevel,oplist,oparity,depthnodes,dimensions,fixeddims);
          pop(ncreated+1:ncreated+ntocreate)=partialpop;
       end
       ncreated=ncreated+ntocreate;
@@ -66,7 +66,7 @@ for m=1:nlevels;
    if ncreated<n
       ntocreate=min([n-ncreated ngrowmethod]);
       if ntocreate>0
-	      [partialpop,lastid]=growinit(ntocreate,lastid,thislevel,oplist,oparity,depthnodes,dimensions);
+	      [partialpop,lastid]=growinit(ntocreate,lastid,thislevel,oplist,oparity,depthnodes,dimensions,fixeddims);
          pop(ncreated+1:ncreated+ntocreate)=partialpop;
       end
       ncreated=ncreated+ntocreate;
@@ -77,7 +77,7 @@ end % for m=1:nlevels
 % if there are not enough individuals (because of roundings) create them as grow in the higher level:
 if ncreated<n
    ntocreate=n-ncreated;
-   [partialpop,lastid]=growinit(ntocreate,lastid,maxlevel,oplist,oparity,depthnodes,dimensions);
+   [partialpop,lastid]=growinit(ntocreate,lastid,maxlevel,oplist,oparity,depthnodes,dimensions,fixeddims);
    pop(ncreated+1:ncreated+ntocreate)=partialpop;
 end
 

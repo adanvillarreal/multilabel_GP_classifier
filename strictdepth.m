@@ -30,11 +30,11 @@ function [validind,state]=strictdepth(ind,pop,params,state,data,parentindices)
 if isempty(ind.level)
 	ind.level=treelevel(ind.tree);
 end
-      
+
 % if deeper than params.realmaxlevel, substitute by a parent:
 if ind.level>params.realmaxlevel
 	if ~strcmp(params.output,'silent')
-  		displaystatus('     (unable to increase maximum depth beyond %d)\n',params.realmaxlevel);
+  		% displaystatus('     (unable to increase maximum depth beyond %d)\n',params.realmaxlevel);
     end
 	% just choose the first parent:
    % (anyway, the choice of who is the first parent is already random)

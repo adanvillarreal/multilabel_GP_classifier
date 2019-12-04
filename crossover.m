@@ -31,7 +31,7 @@ if isempty(ind2.nodes)
    ind2.nodes=nodes(ind2.tree);
 end
 
-if params.M3GP
+if params.M3GP || (isfield(params, 'MLC') && params.MLC)
     % decide which crossover:
     r=rand;
     if r<0.5 % normal crossover, just do not touch the root node
@@ -80,7 +80,7 @@ ind1.testadjustedfitness=[];
 ind1.level=[];
 ind1.nodes=ind1.tree.nodes;
 ind1.introns=[];
-  
+
 ind1.dimensions=[];
 ind1.pruned=0;
 ind1.mapping=[];
@@ -88,7 +88,7 @@ ind1.covariancematrix={};
 ind1.inversematrix={};
 ind1.centroids=[];
 
-ind2.str=tree2str(ind2.tree);      	
+ind2.str=tree2str(ind2.tree);
 ind2.id=[];
 ind2.origin=indorigin;
 ind2.parents=[pop(i2).id,pop(i1).id];
@@ -100,7 +100,7 @@ ind2.testfitness=[];
 ind2.testadjustedfitness=[];
 ind2.level=[];
 ind2.nodes=ind2.tree.nodes;
-ind2.introns=[];   
+ind2.introns=[];
 
 ind2.dimensions=[];
 ind2.pruned=0;

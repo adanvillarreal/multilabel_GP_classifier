@@ -79,15 +79,15 @@ if params.calccomplexity
             [pop(i).introns,state]=intronnodes(pop(i).tree,params,data,state);
         end
 	end
-   
+
    poplevels=[pop.level];
    popnodes=[pop.nodes];
    popintrons=[pop.introns];
-   
+
    state.avglevelhistory(end+1)=mean(poplevels);
    state.avgnodeshistory(end+1)=mean(popnodes);
    state.avgintronshistory(end+1)=mean(popintrons);
-   
+
    % tree fill percentage:
    mlevel=max(poplevels);
    avgkids=mean(state.arity(find(state.arity>0)));
@@ -136,13 +136,13 @@ if params.usetestdata
    state.bestsofar.testadjustedfitness=testindividual.adjustedfitness;
    state.bestsofar.testresult=testindividual.result;
    state.bestfithistory(end+1,:)=[state.bestsofar.fitness state.bestsofar.testfitness];
-else   
+else
    state.bestfithistory(end+1)=state.bestsofar.fitness;
 end
 if isempty(state.bestsofar.nodes)
    state.bestsofar.nodes=nodes(state.bestsofar.tree);
 end
-if ~params.M3GP && isempty(state.bestsofar.introns)
+if ~params.M3GP && ~(isfield(params, 'MLC') && params.MLC) &&  isempty(state.bestsofar.introns)
    [nintrons,state]=intronnodes(state.bestsofar.tree,params,data,state);
    state.bestsofar.introns=nintrons;
 end
@@ -153,10 +153,10 @@ if isempty(state.bestsofarhistory) || (state.bestsofar.id~=state.bestsofarhistor
    state.bestsofarhistory{end+1,1}=state.generation;
    state.bestsofarhistory{end,2}=state.bestsofar;
 end
-if params.M3GP
+if params.M3GP || isfield(params, 'MLC') && params.MLC
     state.bestsofar.dimensions = length(state.bestsofar.tree.kids);
 end
-    
+
 
 % get maximum, minimum, average, median, stddev fitness:
 if params.lowerisbetter
@@ -185,7 +185,7 @@ state.fithistory(g,5)=state.stdfitness;
 state.levelhistory(end+1)=state.maxlevel;
 state.bestlevelhistory(end+1)=state.bestsofar.level;
 state.bestnodeshistory(end+1)=state.bestsofar.nodes;
-if ~params.M3GP
+if ~params.M3GP && ~(isfield(params, 'MLC') && params.MLC)
     state.bestintronshistory(end+1)=state.bestsofar.introns;
 end
 state.ophistory(end+1,:)=state.operatorprobs;
@@ -246,7 +246,7 @@ if params.opeq
     state.opeq.full=zeros(1,length(state.opeq.target_occupancy));
     state.opeq.fitnesses={};
 end % if params.opeq
-   
+
 % non-opeq rejections:
 
     if isempty(state.rejected)
@@ -276,7 +276,7 @@ end
 
    % just to remind,
    % the simple measure from population genetics:
-   
+
    %popindividuals={pop.str};
    %uniqueindividuals=unique(popindividuals);
    %reppopindividuals=repmat(popindividuals',1,length(uniqueindividuals));
@@ -284,4 +284,3 @@ end
    %uniquematch=strcmp(reppopindividuals,repuniqueindividuals);
    %uniquefreqs=sum(uniquematch,1)/state.popsize;
    %state.diversityhistory(end+1)=1-(sum(uniquefreqs.*uniquefreqs));
-   
